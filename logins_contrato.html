@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Selecione o Login do Contrato</h2>
+<ul class="list-group">
+  {% for login in logins %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      {{ login.login }} (ID: {{ login.id }})
+      <a href="{{ url_for('ver_login', cliente_id=cliente_id, contrato_id=contrato_id, login_id=login.id) }}" class="btn btn-primary btn-sm">Selecionar</a>
+    </li>
+  {% else %}
+    <li class="list-group-item">Nenhum login encontrado para este contrato.</li>
+  {% endfor %}
+</ul>
+<a href="{{ url_for('contratos', cliente_id=cliente_id) }}" class="btn btn-secondary mt-4">Voltar</a>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Situação Financeira do Contrato</h2>
+<div><b>Contrato:</b> {{ contrato.id_contrato or contrato.id }}</div>
+<div><b>Conta:</b> {{ contrato.id_conta }}</div>
+<h3 class="mt-4">Resumo Financeiro</h3>
+<ul>
+    <li>Valor em aberto: R$ {{ resumo.valor_aberto }}</li>
+    <li>Faturas em aberto: {{ resumo.qtd_aberto }}</li>
+    <li>Valor vencido: R$ {{ resumo.valor_vencido }}</li>
+    <li>Faturas vencidas: {{ resumo.qtd_vencido }}</li>
+</ul>
+<h3 class="mt-4">Anotações</h3>
+<ul>
+    {% for anotacao in anotacoes %}
+      <li>{{ anotacao.texto }} <small>({{ anotacao.created_at.strftime('%d/%m/%Y %H:%M') if anotacao.created_at else '' }})</small></li>
+    {% endfor %}
+</ul>
+<form action="{{ url_for('anotar_contrato', contrato_id=contrato.id_contrato or contrato.id) }}" method="post">
+    <textarea class="form-control mb-2" name="texto" placeholder="Adicionar anotação..." required></textarea>
+    <button type="submit" class="btn btn-secondary">Salvar anotação</button>
+</form>
+<a href="{{ url_for('contratos', cliente_id=cliente_id) }}" class="btn btn-info mt-4">Voltar</a>
+{% endblock %}

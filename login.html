@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Logins do Cliente {{ cliente_id }}</h2>
+{% if logins %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Login</th>
+                <th>Login</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for login in logins %}
+            <tr>
+                <td>{{ login.id }}</td>
+                <td>{{ login.login }}</td>
+                <td>{{ login.status }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <div class="alert alert-warning">Nenhum login encontrado para este cliente.</div>
+{% endif %}
+<a href="{{ url_for('mostrar_cliente', cliente_id=cliente_id) }}" class="btn btn-secondary">Voltar</a>
+{% endblock %}

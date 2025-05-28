@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dados do Cliente</h2>
+<div><b>ID:</b> {{ cliente.id }}</div>
+<div><b>Nome:</b> {{ cliente.nome_razao }}</div>
+<div><b>Email:</b> {{ cliente.email }}</div>
+<a href="{{ url_for('contratos', cliente_id=cliente.id) }}" class="btn btn-info mt-4">Ver Contratos</a>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Cliente - Navix Telecom{% endblock %}
+{% block content %}
+<h2>Dados do Cliente</h2>
+<ul class="list-group mb-4">
+    {% for key, value in cliente.items() %}
+        <li class="list-group-item"><strong>{{ key }}:</strong> {{ value }}</li>
+    {% endfor %}
+</ul>
+
+<h3>Contratos</h3>
+{% if contratos %}
+    <ul class="list-group mb-4">
+        {% for contrato in contratos %}
+            <li class="list-group-item">
+                <strong>ID Contrato:</strong> {{ contrato.id_contrato }} |
+                <strong>Status:</strong> {{ contrato.status }} |
+                <strong>Plano:</strong> {{ contrato.plano }}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>Nenhum contrato encontrado.</p>
+{% endif %}
+
+<h3>Anotações</h3>
+<form method="POST" action="{{ url_for('salvar_anotacao') }}">
+    <input type="hidden" name="id_cliente" value="{{ cliente.id }}">
+    <div class="mb-3">
+        <textarea class="form-control" name="texto" rows="3" placeholder="Digite sua anotação..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Salvar Anotação</button>
+</form>
+
+{% if anotacoes %}
+    <ul class="list-group mt-3">
+        {% for anotacao in anotacoes %}
+            <li class="list-group-item">{{ anotacao.texto }} <small class="text-muted">({{ anotacao.data }})</small></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}
